@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Budgets from './Budgets'
 import { v4 as uuidv4 } from 'uuid';
+import Expenses from './Expenses';
 
 function Main() {
 
@@ -45,15 +46,15 @@ function Main() {
             <form onSubmit={handleExpense}>
                     <div className='my-5'>
                         <label className='font-bold'>Expense Name</label>
-                        <input type="text" onChange={(e)=>setExpense({...expense,expName:e.target.value})} placeholder='Category' className='p-3 w-full border-slate-700 border-2 rounded-lg'/>
+                        <input type="text" onChange={(e)=>setExpense({...expense,expName:e.target.value})} placeholder='Expense Name' className='p-3 w-full border-slate-700 border-2 rounded-lg'/>
                     </div>
-                    <div className='flex flex-wrap md:gap-14 gap-5'>
-                        <div className='w-full'>
+                    <div className='flex  md:gap-3 gap-5'>
+                        <div className='md:w-1/2'>
                             <label className='font-bold'>Amount</label>
                             <input type="number" onChange={(e)=>setExpense({...expense,amount:e.target.value})} placeholder='Amount' className='p-3 w-full border-slate-700 border-2 rounded-lg'/>
                         </div>
 
-                        <div className='w-full'>
+                        <div className='md:w-1/2'>
                             <label className='font-bold'>Budget Category</label><br />
                             <select name=""  onChange={(e)=>setExpense({...expense,budget:e.target.value})} id="" className='p-3 w-full border-slate-700 border-2 rounded-lg'>
                                 <option value="groceries">Grocries</option>
@@ -77,24 +78,23 @@ function Main() {
         </div>
 
         {/* LIST OF EXPENSES */}
-        <div className='p-5'>
-            <h3>Expenses List</h3>
+        <div className='my-5'>
+            <h3 className='font-bold text-3xl my-2'>Expenses List</h3>
 
-            <div>
-                <table className='table-auto'>
-                    <thead>
+            <div className=''>
+                <table class="w-3/6">
+                    <thead className='bg-gray-100'>
                         <tr>
                             <th>Name</th>
                             <th>Amount</th>
                             <th>Date</th>
                             <th>Budget</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        <Expenses/>
                     </tbody>
-                    
-
                 </table>
             </div>
         </div>
