@@ -2,20 +2,29 @@ import React, { useState } from 'react'
 import Budgets from './Budgets'
 import { v4 as uuidv4 } from 'uuid';
 import Expenses from './Expenses';
+import { useDispatch,useSelector } from 'react-redux';
+import { addBudget,addExpense } from '../store/expense';
+
 
 function Main() {
+    const dispatch = useDispatch()
+    const budgets = useSelector(state=>state.expense.budgets)
+    const expenses = useSelector(state=>state.expense.expenses)
 
     const [budget,setBudget] = useState({})
     const [expense,setExpense] = useState({})
 
     const handleBudgetSubmit = (e)=>{
         e.preventDefault()
-        console.log({id:uuidv4(),...budget})
+        dispatch(addBudget({id:uuidv4(),...budget}))
+        setBudget({})
     }
 
     const handleExpense=(e)=>{
         e.preventDefault()
-        console.log({id:uuidv4(),...expense})
+        
+        dispatch(addExpense({id:uuidv4(),...expense}))
+        // setExpense({})
     }
 
 
@@ -56,8 +65,8 @@ function Main() {
 
                         <div className='md:w-1/2'>
                             <label className='font-bold'>Budget Category</label><br />
-                            <select name=""  onChange={(e)=>setExpense({...expense,budget:e.target.value})} id="" className='p-3 w-full border-slate-700 border-2 rounded-lg'>
-                                <option value="groceries">Grocries</option>
+                            <select name="" value={''}  onChange={(e)=>setExpense({...expense,budget:e.target.value})} id="" className='p-3 w-full border-slate-700 border-2 rounded-lg'>
+                                <option value=""></option>
                                 <option value="clothing">Clothing</option>
                                 <option value="bills">Bills</option>
                             </select>
@@ -72,8 +81,13 @@ function Main() {
     {/* LIST OF BUSGETS */}
         <div>
             <h3>Exisiting Budget</h3>
-            <div className="flex flex-wrap gap-5">
-                <Budgets/>
+            <div className="flex gap-2 overflow-auto">
+                {
+                    budgets.map(budget =>(
+                        <Budgets key={budget.id}/>
+                    ))
+                }
+
             </div>
         </div>
 
@@ -82,7 +96,7 @@ function Main() {
             <h3 className='font-bold text-3xl my-2'>Expenses List</h3>
 
             <div className=''>
-                <table class="w-3/6">
+                <table className="w-3/6">
                     <thead className='bg-gray-100'>
                         <tr>
                             <th>Name</th>
@@ -93,7 +107,12 @@ function Main() {
                         </tr>
                     </thead>
                     <tbody>
-                        <Expenses/>
+                    {
+                        expenses.map(expense =>(
+                            <Expenses key={expense.id}/>
+                        ))
+                    }
+                        
                     </tbody>
                 </table>
             </div>
