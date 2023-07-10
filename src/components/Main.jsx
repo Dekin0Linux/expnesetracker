@@ -9,10 +9,12 @@ import { addBudget,addExpense } from '../store/expense';
 function Main() {
     const dispatch = useDispatch()
     const budgets = useSelector(state=>state.expense.budgets)
-    const expenses = useSelector(state=>state.expense.expenses)
+    const expenses = useSelector(state=>state.expense.expenses) 
 
     const [budget,setBudget] = useState({})
     const [expense,setExpense] = useState({})
+    const totalExpense = 0
+
 
     const handleBudgetSubmit = (e)=>{
         e.preventDefault()
@@ -22,7 +24,6 @@ function Main() {
 
     const handleExpense=(e)=>{
         e.preventDefault()
-        
         dispatch(addExpense({id:uuidv4(),...expense}))
         // setExpense({})
     }
@@ -66,7 +67,7 @@ function Main() {
                         <div className='md:w-1/2'>
                             <label className='font-bold'>Budget Category</label><br />
                             <select name="" value={''}  onChange={(e)=>setExpense({...expense,budget:e.target.value})} id="" className='p-3 w-full border-slate-700 border-2 rounded-lg'>
-                                <option value=""></option>
+                                <option value="Groceries"></option>
                                 <option value="clothing">Clothing</option>
                                 <option value="bills">Bills</option>
                             </select>
@@ -84,7 +85,7 @@ function Main() {
             <div className="flex gap-2 overflow-auto">
                 {
                     budgets.map(budget =>(
-                        <Budgets key={budget.id}/>
+                        <Budgets key={budget.id} budget={budget}/>
                     ))
                 }
 
@@ -109,7 +110,7 @@ function Main() {
                     <tbody>
                     {
                         expenses.map(expense =>(
-                            <Expenses key={expense.id}/>
+                            <Expenses key={expense.id} expense={expense}/>
                         ))
                     }
                         
