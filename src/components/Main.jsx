@@ -113,11 +113,20 @@ function Main() {
                     </thead>
                     <tbody>
                     {
-                        expenses.map(expense =>(
-                            <Expenses key={expense.id} expense={expense}/>
-                        ))
-                    }
+                        expenses.length > 0 ?
+                    
+                        (
+                            expenses.map(expense =>(
+                                <Expenses key={expense.id} expense={expense}/>
+                            ))
+                        ) : 
+                        (
+                            <h3 className='font-bold text-3xl text-center text-slate-500 p-10'>No Expenses</h3>
+
+                        )
+
                         
+                    }
                     </tbody>
                 </table>
             </div>
