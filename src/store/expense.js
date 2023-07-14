@@ -19,7 +19,7 @@ export const expenseSlice = createSlice({
         deleteExpense:(state,action)=>{
             let deleteExpense = state.expenses.filter(expense=>expense.id !== action.payload)
             state.expenses = deleteExpense
-        }
+        },
     }
 })
 

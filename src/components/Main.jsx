@@ -19,12 +19,13 @@ function Main() {
     const handleBudgetSubmit = (e)=>{
         e.preventDefault()
         dispatch(addBudget({id:uuidv4(),...budget}))
-        setBudget({})
+        console.log({id:uuidv4(),...budget})
     }
 
     const handleExpense=(e)=>{
         e.preventDefault()
         dispatch(addExpense({id:uuidv4(),...expense}))
+        console.log({id:uuidv4(),...expense})
         // setExpense({})
     }
 
@@ -66,10 +67,13 @@ function Main() {
 
                         <div className='md:w-1/2'>
                             <label className='font-bold'>Budget Category</label><br />
-                            <select name="" value={''}  onChange={(e)=>setExpense({...expense,budget:e.target.value})} id="" className='p-3 w-full border-slate-700 border-2 rounded-lg'>
-                                <option value="Groceries"></option>
-                                <option value="clothing">Clothing</option>
-                                <option value="bills">Bills</option>
+                            <select name=""  onChange={(e)=>setExpense({...expense,budget:e.target.value})} id="" className='p-3 w-full border-slate-700 border-2 rounded-lg'>
+                                <option value='' >Select category</option>
+                                {
+                                    budgets.map((b,index)=>(
+                                        <option value={b.category} key={b.id}>{b.category}</option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
